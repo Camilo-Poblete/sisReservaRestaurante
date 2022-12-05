@@ -17,7 +17,8 @@ public class DPrincipal {
       //  FrmLogin miLogin = new FrmLogin();
         //miLogin.setVisible(true);
         DConexion miconexion = new DConexion();
-        miconexion.getConnection();
+        miconexion.conectarDB();
     }
+    
     
 }

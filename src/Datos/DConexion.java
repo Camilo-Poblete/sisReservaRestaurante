@@ -16,41 +16,21 @@ import javax.swing.JOptionPane;
  */
 public class DConexion {
    
-  private static Connection conn;
-  private static final String driver = "com.mysql.jdbc.Driver";
-  private static final String user = "root";
-  private static final String password= "";
-  private static final String  url= "jdbc:mysql://localhost:3306/dbreserva";
-        
-   
-       public DConexion(){
-           conn = null;
-           
-           try {
-               Class.forName(driver);
-               conn = DriverManager.getConnection(url,user,password);
-               if(conn != null){
-                   System.out.println("Conexion establecida");
-               }
-               
-               
-           } catch (ClassNotFoundException  | SQLException e) {
-               System.out.println("Error al conectar"+e);
-           }
-        
-         
-    }
-       
-       public Connection getConnection(){
-           return conn;
-       }
-       
-       
-       public void desconectar(){
-           conn = null;
-           if(conn == null){
-               System.out.println("Conexion terminada.. ");
-           }
-       }
-    
+  public DConexion(){
+      
+  }
+  
+  public Connection conectarDB(){
+      Connection miconex = null;
+      
+      try {
+          Class.forName("com.mysql.jdbc.Driver");
+          miconex= DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva","root","");
+          JOptionPane.showMessageDialog(null, "Ya se conecto");
+          
+      } catch (ClassNotFoundException  | SQLException ex) {
+          JOptionPane.showMessageDialog(null, ex);
+      }
+      return miconex;
+  }
 }
