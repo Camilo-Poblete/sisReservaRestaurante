@@ -6,6 +6,7 @@
 package Datos;
 
 import Presentacion.FrmLogin;
+import Presentacion.MDIPrincipal;
 
 /**
  *
@@ -16,8 +17,11 @@ public class DPrincipal {
     public static void main(String[] args){
       //  FrmLogin miLogin = new FrmLogin();
         //miLogin.setVisible(true);
+        
         DConexion miconexion = new DConexion();
-        miconexion.conectarDB();
+        
+        MDIPrincipal miprincipal = new MDIPrincipal();
+        miprincipal.setVisible(true);
     }
     
     

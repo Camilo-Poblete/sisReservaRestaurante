@@ -1,8 +1,12 @@
 
 package Presentacion;
 
+
+import Datos.DUsuarios;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author Camilo-Poblete
@@ -24,12 +28,14 @@ public class FrmUsuarios extends JInternalFrame{
    private JScrollPane scrUsuarios;
    private DefaultTableModel mimodelo;
    
-    public FrmUsuarios(){
+   
+    public FrmUsuarios() throws SQLException{
         setTitle("Usuarios");
         setSize(900,600);
         setClosable(true);
         setIconifiable(true);
         setLayout(null);
+        
         
         //creamos icono
         ImageIcon imagenLogin = new ImageIcon(getClass().getResource("/Imagenes/usuario.png"));
@@ -148,6 +154,35 @@ public class FrmUsuarios extends JInternalFrame{
         
         scrUsuarios.setBounds(50, 390, 800, 150);
       
-        
+        cargarUsuarios();
     }
-}
+    
+    private  void cargarUsuarios() throws SQLException{
+        try{
+        
+        String titulos[] = {"Id","Nombre","Usuario","Clave","Perfil"};
+        String registros[] = new String[5];
+       // mimodelo = new DefaultTableModel(null,titulos);
+        DUsuarios misusuarios = new DUsuarios();
+        ResultSet rs = misusuarios.obtenerUsuarios();
+        
+        while(rs.next()){
+             registros[0] = rs.getString("idUsuario");
+             registros[1] = rs.getString("Nombre")+ " "+rs.getString("Apaterno")+ ""+ rs.getString("Amaterno");
+             registros[2] = rs.getString("Usuario");
+             registros[3] = rs.getString("Clave");
+             registros[4] = rs.getString("Perfil");
+             mimodelo.addRow(registros);
+             
+        }
+        tblUsuarios.setModel(mimodelo);
+        
+        
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(this,ex);
+        }
+    }
+    
+    }
+        
+     
