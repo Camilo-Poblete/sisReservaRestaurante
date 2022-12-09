@@ -4,6 +4,9 @@ package Presentacion;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -81,7 +84,11 @@ public class MDIPrincipal extends JFrame{
         
     jmItemUsuarios.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent evt){
-          jmItemUsuariosActionPerformed(evt);
+            try {
+                jmItemUsuariosActionPerformed(evt);
+            } catch (SQLException ex) {
+                Logger.getLogger(MDIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
         
         
@@ -89,7 +96,7 @@ public class MDIPrincipal extends JFrame{
     });
 }
 
-private void jmItemUsuariosActionPerformed(ActionEvent evt){
+private void jmItemUsuariosActionPerformed(ActionEvent evt) throws SQLException{
     FrmUsuarios misUsuarios = new FrmUsuarios();
     jdpEscritorio.add(misUsuarios);
     misUsuarios.show();

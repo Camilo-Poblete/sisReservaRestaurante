@@ -167,7 +167,7 @@ public class FrmUsuarios extends JInternalFrame{
         ResultSet rs = misusuarios.obtenerUsuarios();
         
         while(rs.next()){
-             registros[0] = rs.getString("idUsuario");
+             registros[0] = rs.getString("idUsuarios");
              registros[1] = rs.getString("Nombre")+ " "+rs.getString("Apaterno")+ ""+ rs.getString("Amaterno");
              registros[2] = rs.getString("Usuario");
              registros[3] = rs.getString("Clave");

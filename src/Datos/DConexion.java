@@ -24,8 +24,8 @@ public class DConexion {
       Connection miconex = null;
       
       try {
-          Class.forName("com.mysql.jdbc.Driver");
-          miconex= DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva","root","");
+          Class.forName("com.mysql.cj.jdbc.Driver");
+          miconex= DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva","root","camilo12");
           JOptionPane.showMessageDialog(null, "Ya se conecto");
           
       } catch (ClassNotFoundException  | SQLException ex) {
