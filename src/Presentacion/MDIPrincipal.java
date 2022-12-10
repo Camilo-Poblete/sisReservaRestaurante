@@ -82,21 +82,19 @@ public class MDIPrincipal extends JFrame{
         
         
         
-    jmItemUsuarios.addActionListener(new ActionListener(){
-        public void actionPerformed(ActionEvent evt){
-            try {
+    jmItemUsuarios.addActionListener(new java.awt.event.ActionListener(){
+        public void actionPerformed(java.awt.event.ActionEvent evt){
+            
+         
                 jmItemUsuariosActionPerformed(evt);
-            } catch (SQLException ex) {
-                Logger.getLogger(MDIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-        
+            
+               
         
        }
     });
 }
 
-private void jmItemUsuariosActionPerformed(ActionEvent evt) throws SQLException{
+private void jmItemUsuariosActionPerformed(ActionEvent evt) {
     FrmUsuarios misUsuarios = new FrmUsuarios();
     jdpEscritorio.add(misUsuarios);
     misUsuarios.show();

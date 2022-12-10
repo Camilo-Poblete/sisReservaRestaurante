@@ -3,10 +3,21 @@ package Presentacion;
 
 
 import Datos.DUsuarios;
+import Logica.LUsuarios;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
+
+
+
 /**
  *
  * @author Camilo-Poblete
@@ -22,14 +33,15 @@ public class FrmUsuarios extends JInternalFrame{
    private JComboBox cmbPerfil;
    private JButton btnNuevo,btnEditar,btnGuardar,btnCancelar,btnBuscar,btnEliminar;
    
+   
    private String []perfil={"Administrador","Empleado"};
-   private String[]titulos = {"Id","Nombre","Usuario","Clave","Perfil"};
+   private String[]titulos = {"Id","Nombre","A/Paterno","A/Materno","Usuario","Clave","Perfil"};
    private JTable tblUsuarios;
    private JScrollPane scrUsuarios;
    private DefaultTableModel mimodelo;
    
    
-    public FrmUsuarios() throws SQLException{
+    public FrmUsuarios()  {
         setTitle("Usuarios");
         setSize(900,600);
         setClosable(true);
@@ -154,20 +166,182 @@ public class FrmUsuarios extends JInternalFrame{
         
         scrUsuarios.setBounds(50, 390, 800, 150);
       
+        
         cargarUsuarios();
+        nomostrarComponentes();
+        
+    
+        
+      
+        
+        btnGuardar.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent evt)  {
+                 btnGuardarActionPerformed(evt);
+            }
+            
+        });
+        
+        
+        btnNuevo.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                btnEditarActionPerformed(evt);
+            
+        }
+            
+            
+        
+        
+    });
+        
+        
+        
+        
+         tblUsuarios.addMouseListener(new MouseAdapter() {
+             public void MouseClicked(MouseEvent evt){
+                 tblUsuariosMouseClicked(evt);
+        
+        
+        
+        }
+        
+             
+         
+         
+         
+         
+            private void tblUsuariosMouseClicked(MouseEvent evt){
+                 int fila = tblUsuarios.rowAtPoint(evt.getPoint());
+                txtId.setText(tblUsuarios.getValueAt(fila, 0).toString());
+                txtNombre.setText(tblUsuarios.getValueAt(fila, 1).toString());
+                txtApaterno.setText(tblUsuarios.getValueAt(fila, 2).toString());
+                txtAmaterno.setText(tblUsuarios.getValueAt(fila, 3).toString());
+                txtUsuario.setText(tblUsuarios.getValueAt(fila, 4).toString());
+                txtClave.setText(tblUsuarios.getValueAt(fila, 5).toString());
+                cmbPerfil.setSelectedItem(tblUsuarios.getValueAt(fila, 6).toString());
+             }
+    
+    });
+         
+         
+         
+         
+         
+    
+        
+        btnEditar.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent evt){
+                 btnEliminarActionPerformed(evt);
+             
+        
+        
+        
+        }
+        
+             
+             
+    
+    });
+        
+        btnCancelar.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent evt){
+                 btnEliminarActionPerformed(evt);
+             
+        
+        
+        
+        }
+        
+             
+             
+    
+    });
+        
+        
+        btnEliminar.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent evt){
+                 btnEliminarActionPerformed(evt);
+             
+        
+        
+        
+        }
+        
+             
+             
+    
+    });
+        
+        
+        
+        
+        
+        
+        
     }
     
-    private  void cargarUsuarios() throws SQLException{
+    
+    
+    
+    
+    private void btnGuardarActionPerformed(ActionEvent evt) {
+        if(!txtId.getText().equals("")){
+        
+        LUsuarios dts = new LUsuarios();
+        DUsuarios funciones = new DUsuarios();
+        dts.setNombre(txtNombre.getText());
+        dts.setAPaterno(txtApaterno.getText());
+        dts.setAMaterno(txtAmaterno.getText());
+        dts.setUsuarios(txtUsuario.getText());
+        String Clave = new String(txtClave.getPassword());
+        dts.setClave(Clave);
+        int seleccion = cmbPerfil.getSelectedIndex();
+        dts.setPerfil((String) cmbPerfil.getItemAt(seleccion));
+        dts.setIdUsuarios(Integer.parseInt(txtId.getText()));
+     
+       String mensaje = funciones.editarUsuarios(dts);
+       JOptionPane.showMessageDialog(this, mensaje);
+      
+       
+       }else {
+    
+    
+        LUsuarios datos = new LUsuarios();
+        DUsuarios funciones = new DUsuarios();
+        datos.setNombre(txtNombre.getText());
+        datos.setAPaterno(txtApaterno.getText());
+        datos.setAMaterno(txtAmaterno.getText());
+        datos.setUsuarios(txtUsuario.getText());
+        String Clave = new String(txtClave.getPassword());
+        datos.setClave(Clave);
+        int seleccion = cmbPerfil.getSelectedIndex();
+        datos.setPerfil((String) cmbPerfil.getItemAt(seleccion));
+        
+     
+       String mensaje = funciones.agregarUsuarios(datos);
+       JOptionPane.showMessageDialog(this, mensaje);
+         
+    
+     }
+       
+       cargarUsuarios();
+       nomostrarComponentes();
+     
+    }
+    
+    
+    /**
+    
+    private  void cargarUsuarios(){
         try{
         
-        String titulos[] = {"Id","Nombre","Usuario","Clave","Perfil"};
+       
         String registros[] = new String[5];
-       // mimodelo = new DefaultTableModel(null,titulos);
+     
         DUsuarios misusuarios = new DUsuarios();
         ResultSet rs = misusuarios.obtenerUsuarios();
         
         while(rs.next()){
-             registros[0] = rs.getString("idUsuarios");
+             registros[0] = rs.getString("IdUsuarios");
              registros[1] = rs.getString("Nombre")+ " "+rs.getString("Apaterno")+ ""+ rs.getString("Amaterno");
              registros[2] = rs.getString("Usuario");
              registros[3] = rs.getString("Clave");
@@ -181,8 +355,92 @@ public class FrmUsuarios extends JInternalFrame{
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(this,ex);
         }
+        
+        
+        
     }
     
-    }
+    */
+    
+    
+        private void nomostrarComponentes(){
+             txtId.setEnabled(false);
+            txtNombre.setEnabled(false);
+            txtApaterno.setEnabled(false);
+            txtAmaterno.setEnabled(false);
+            txtUsuario.setEnabled(false);
+            txtClave.setEnabled(false);
+            txtConfirmaClave.setEnabled(false);
+            cmbPerfil.setEnabled(false);
+            
+            btnNuevo.setEnabled(true);
+            btnEditar.setEnabled(true);
+            btnEliminar.setEnabled(true);
+            btnBuscar.setEnabled(true);
+            
+            btnGuardar.setEnabled(false);
+            btnCancelar.setEnabled(false);
+            
+        }
         
-     
+        
+        
+        
+    
+        
+        private void simostrarComponentes(){
+            txtId.setEnabled(false);
+            txtNombre.setEnabled(true);
+            txtApaterno.setEnabled(true);
+            txtAmaterno.setEnabled(true);
+            txtUsuario.setEnabled(true);
+            txtClave.setEnabled(true);
+            txtConfirmaClave.setEnabled(true);
+            cmbPerfil.setEnabled(true);
+            
+            btnNuevo.setEnabled(false);
+            btnEditar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            btnBuscar.setEnabled(false);
+            
+            btnGuardar.setEnabled(true);
+            btnCancelar.setEnabled(true);
+                   
+        }
+        
+        
+        private void cargarUsuarios(){
+            DefaultTableModel miModelo;
+            DUsuarios miFun = new DUsuarios();
+            miModelo = miFun.mostrarUsuarios();
+            tblUsuarios.setModel(miModelo);
+        }
+        
+        
+        
+        public void btnNuevoActionPerformed(ActionEvent evt){
+            simostrarComponentes();
+            
+        }
+        
+          
+        public void btnCancelarActionPerformed(ActionEvent evt){
+            simostrarComponentes();
+            
+        }
+        
+        
+          
+        public void btnEliminarActionPerformed(ActionEvent evt){
+            simostrarComponentes();
+            
+        }
+        
+         public void btnEditarActionPerformed(ActionEvent evt){
+            simostrarComponentes();
+            
+        }
+    }
+    
+    
+        

@@ -75,6 +75,7 @@ public class FrmLogin extends JFrame{
         btnIngresar.setBounds(200,130,100,25);
         btnCancelar.setBounds(310,130,100,25);
         
+        
         btnIngresar.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 btnIngresarActionPerformed(evt);
