@@ -54,30 +54,12 @@ public class DUsuarios {
     
     }
     
-    
-    /**
-    public ResultSet obtenerUsuarios(){
-        try {
-            
-            String queryOb = "SELECT * FROM  tblusuarios";
-            Statement st = cn.createStatement();
-            return st.executeQuery(queryOb);
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex);
-            return null;
-        }
-            
-        
-   
-   * 
-    }
-    
-    * */
+
     
     public String agregarUsuarios(LUsuarios misUsuarios){
         try {
-            String sql = "INSERT INTO tblusuarios(IdUsuarios,Nombre, Apaterno, Amaterno, Usuario, Clave, Perfil) VALUES('"
-                       +misUsuarios.getIdUsuarios()+"','"+misUsuarios.getNombre()+"','" +misUsuarios.getAPaterno()+"','"+misUsuarios.getAMaterno()+"','"
+            String sql = "INSERT INTO tblusuarios(Nombre, Apaterno, Amaterno, Usuario, Clave, Perfil) VALUES('"
+                       +misUsuarios.getNombre()+"','" +misUsuarios.getAPaterno()+"','"+misUsuarios.getAMaterno()+"','"
                     +misUsuarios.getUsuarios()+"','"+ misUsuarios.getClave()+"','"+misUsuarios.getPerfil()+"')";
                      Statement st = cn.createStatement();
                      st.executeUpdate(sql);

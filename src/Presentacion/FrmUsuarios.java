@@ -41,6 +41,7 @@ public class FrmUsuarios extends JInternalFrame{
    private DefaultTableModel mimodelo;
    
    
+   
     public FrmUsuarios()  {
         setTitle("Usuarios");
         setSize(900,600);
@@ -184,7 +185,7 @@ public class FrmUsuarios extends JInternalFrame{
         
         btnNuevo.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
-                btnEditarActionPerformed(evt);
+                btnNuevoActionPerformed(evt);
             
         }
             
@@ -194,43 +195,14 @@ public class FrmUsuarios extends JInternalFrame{
     });
         
         
-        
-        
-         tblUsuarios.addMouseListener(new MouseAdapter() {
-             public void MouseClicked(MouseEvent evt){
-                 tblUsuariosMouseClicked(evt);
-        
-        
-        
-        }
-        
-             
-         
-         
-         
-         
-            private void tblUsuariosMouseClicked(MouseEvent evt){
-                 int fila = tblUsuarios.rowAtPoint(evt.getPoint());
-                txtId.setText(tblUsuarios.getValueAt(fila, 0).toString());
-                txtNombre.setText(tblUsuarios.getValueAt(fila, 1).toString());
-                txtApaterno.setText(tblUsuarios.getValueAt(fila, 2).toString());
-                txtAmaterno.setText(tblUsuarios.getValueAt(fila, 3).toString());
-                txtUsuario.setText(tblUsuarios.getValueAt(fila, 4).toString());
-                txtClave.setText(tblUsuarios.getValueAt(fila, 5).toString());
-                cmbPerfil.setSelectedItem(tblUsuarios.getValueAt(fila, 6).toString());
-             }
-    
-    });
-         
-         
-         
+
          
          
     
         
         btnEditar.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent evt){
-                 btnEliminarActionPerformed(evt);
+                 btnEditarActionPerformed(evt);
              
         
         
@@ -244,7 +216,7 @@ public class FrmUsuarios extends JInternalFrame{
         
         btnCancelar.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent evt){
-                 btnEliminarActionPerformed(evt);
+                 btnCancelarActionPerformed(evt);
              
         
         
@@ -271,7 +243,12 @@ public class FrmUsuarios extends JInternalFrame{
     
     });
         
+        tblUsuarios.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent evt){
+                tblUsuariosMouseClicked(evt);
+            }
         
+        });
         
         
         
@@ -279,88 +256,21 @@ public class FrmUsuarios extends JInternalFrame{
         
     }
     
-    
-    
-    
-    
-    private void btnGuardarActionPerformed(ActionEvent evt) {
-        if(!txtId.getText().equals("")){
-        
-        LUsuarios dts = new LUsuarios();
-        DUsuarios funciones = new DUsuarios();
-        dts.setNombre(txtNombre.getText());
-        dts.setAPaterno(txtApaterno.getText());
-        dts.setAMaterno(txtAmaterno.getText());
-        dts.setUsuarios(txtUsuario.getText());
-        String Clave = new String(txtClave.getPassword());
-        dts.setClave(Clave);
-        int seleccion = cmbPerfil.getSelectedIndex();
-        dts.setPerfil((String) cmbPerfil.getItemAt(seleccion));
-        dts.setIdUsuarios(Integer.parseInt(txtId.getText()));
-     
-       String mensaje = funciones.editarUsuarios(dts);
-       JOptionPane.showMessageDialog(this, mensaje);
+  private void  tblUsuariosMouseClicked(MouseEvent evt){
+      int fila = tblUsuarios.rowAtPoint(evt.getPoint());
       
-       
-       }else {
+      txtId.setText(tblUsuarios.getValueAt(fila, 0).toString());
+      txtNombre.setText(tblUsuarios.getValueAt(fila, 1).toString());
+      txtApaterno.setText(tblUsuarios.getValueAt(fila, 2).toString());
+      txtAmaterno.setText(tblUsuarios.getValueAt(fila, 3).toString());
+      txtUsuario.setText(tblUsuarios.getValueAt(fila, 4).toString());
+      txtClave.setText(tblUsuarios.getValueAt(fila, 5).toString());
+      cmbPerfil.setSelectedItem(tblUsuarios.getValueAt(fila, 6).toString());
+  }
     
     
-        LUsuarios datos = new LUsuarios();
-        DUsuarios funciones = new DUsuarios();
-        datos.setNombre(txtNombre.getText());
-        datos.setAPaterno(txtApaterno.getText());
-        datos.setAMaterno(txtAmaterno.getText());
-        datos.setUsuarios(txtUsuario.getText());
-        String Clave = new String(txtClave.getPassword());
-        datos.setClave(Clave);
-        int seleccion = cmbPerfil.getSelectedIndex();
-        datos.setPerfil((String) cmbPerfil.getItemAt(seleccion));
-        
-     
-       String mensaje = funciones.agregarUsuarios(datos);
-       JOptionPane.showMessageDialog(this, mensaje);
-         
     
-     }
-       
-       cargarUsuarios();
-       nomostrarComponentes();
-     
-    }
-    
-    
-    /**
-    
-    private  void cargarUsuarios(){
-        try{
-        
-       
-        String registros[] = new String[5];
-     
-        DUsuarios misusuarios = new DUsuarios();
-        ResultSet rs = misusuarios.obtenerUsuarios();
-        
-        while(rs.next()){
-             registros[0] = rs.getString("IdUsuarios");
-             registros[1] = rs.getString("Nombre")+ " "+rs.getString("Apaterno")+ ""+ rs.getString("Amaterno");
-             registros[2] = rs.getString("Usuario");
-             registros[3] = rs.getString("Clave");
-             registros[4] = rs.getString("Perfil");
-             mimodelo.addRow(registros);
-             
-        }
-        tblUsuarios.setModel(mimodelo);
-        
-        
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(this,ex);
-        }
-        
-        
-        
-    }
-    
-    */
+
     
     
         private void nomostrarComponentes(){
@@ -409,13 +319,7 @@ public class FrmUsuarios extends JInternalFrame{
         }
         
         
-        private void cargarUsuarios(){
-            DefaultTableModel miModelo;
-            DUsuarios miFun = new DUsuarios();
-            miModelo = miFun.mostrarUsuarios();
-            tblUsuarios.setModel(miModelo);
-        }
-        
+    
         
         
         public void btnNuevoActionPerformed(ActionEvent evt){
@@ -425,14 +329,14 @@ public class FrmUsuarios extends JInternalFrame{
         
           
         public void btnCancelarActionPerformed(ActionEvent evt){
-            simostrarComponentes();
+           nomostrarComponentes();
             
         }
         
         
           
         public void btnEliminarActionPerformed(ActionEvent evt){
-            simostrarComponentes();
+           
             
         }
         
@@ -440,6 +344,66 @@ public class FrmUsuarios extends JInternalFrame{
             simostrarComponentes();
             
         }
+         
+         
+         
+             
+    private void btnGuardarActionPerformed(ActionEvent evt) {
+        if(!txtId.getText().equals("")){
+        
+        LUsuarios dts = new LUsuarios();
+        DUsuarios funciones = new DUsuarios();
+        dts.setNombre(txtNombre.getText());
+        dts.setAPaterno(txtApaterno.getText());
+        dts.setAMaterno(txtAmaterno.getText());
+        dts.setUsuarios(txtUsuario.getText());
+        String Clave = new String(txtClave.getPassword());
+        dts.setClave(Clave);
+        int seleccion = cmbPerfil.getSelectedIndex();
+        dts.setPerfil((String) cmbPerfil.getItemAt(seleccion));
+        dts.setIdUsuarios(Integer.parseInt(txtId.getText()));
+     
+       String mensaje = funciones.editarUsuarios(dts);
+       JOptionPane.showMessageDialog(this, mensaje);
+      
+       
+       }else {
+    
+    
+        LUsuarios datos = new LUsuarios();
+        DUsuarios funciones = new DUsuarios();
+        datos.setNombre(txtNombre.getText());
+        datos.setAPaterno(txtApaterno.getText());
+        datos.setAMaterno(txtAmaterno.getText());
+        datos.setUsuarios(txtUsuario.getText());
+        String Clave = new String(txtClave.getPassword());
+        datos.setClave(Clave);
+        int seleccion = cmbPerfil.getSelectedIndex();
+        datos.setPerfil((String) cmbPerfil.getItemAt(seleccion));
+        
+     
+       String mensaje = funciones.agregarUsuarios(datos);
+       JOptionPane.showMessageDialog(this, mensaje);
+         
+    
+     }
+       
+       cargarUsuarios();
+       nomostrarComponentes();
+     
+    }
+    
+
+         
+         
+             private void cargarUsuarios(){
+            DefaultTableModel miModelo;
+            DUsuarios miFun = new DUsuarios();
+            miModelo = miFun.mostrarUsuarios();
+            
+            tblUsuarios.setModel(miModelo);
+        }
+        
     }
     
     
