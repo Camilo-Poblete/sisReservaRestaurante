@@ -194,6 +194,17 @@ public class FrmUsuarios extends JInternalFrame{
         
     });
         
+         
+        btnBuscar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                btnBuscarActionPerformed(evt);
+            
+        }
+            
+            
+        
+        
+    });
         
 
          
@@ -319,7 +330,21 @@ public class FrmUsuarios extends JInternalFrame{
         }
         
         
-    
+      
+        public void btnBuscarActionPerformed(ActionEvent evt){
+            buscarUsuarios(txtBuscar.getText());
+            
+            txtId.setText("");
+            txtNombre.setText("");
+            txtApaterno.setText("");
+            txtAmaterno.setText("");
+            txtUsuario.setText("");
+            txtClave.setText("");
+            txtConfirmaClave.setText("");
+            cmbPerfil.setSelectedItem(-1);
+            
+        }
+        
         
         
         public void btnNuevoActionPerformed(ActionEvent evt){
@@ -336,7 +361,17 @@ public class FrmUsuarios extends JInternalFrame{
         
           
         public void btnEliminarActionPerformed(ActionEvent evt){
-           
+           if(!txtId.getText().equals("")){
+               int confirmar = JOptionPane.showConfirmDialog(this, "En realidad deseas eliminar el registro?","Confrmar",2);
+               if(confirmar == 0){
+                   LUsuarios dts = new LUsuarios();
+                   DUsuarios fun = new DUsuarios();
+                   dts.setIdUsuarios(Integer.parseInt(txtId.getText()));
+                   String mensaje = fun.eliminarUsuarios(dts);
+                   JOptionPane.showMessageDialog(this, mensaje);
+                   cargarUsuarios();
+               }
+           }
             
         }
         
@@ -404,6 +439,15 @@ public class FrmUsuarios extends JInternalFrame{
             tblUsuarios.setModel(miModelo);
         }
         
+             
+             
+             private void buscarUsuarios(String dato){
+            DefaultTableModel miModelo;
+            DUsuarios miFun = new DUsuarios();
+            miModelo = miFun.buscarUsuarios(dato);
+            
+            tblUsuarios.setModel(miModelo);
+        }
     }
     
     

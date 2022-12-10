@@ -74,7 +74,7 @@ public class DUsuarios {
     }
     
     
-          public String editarUsuarios(LUsuarios misUsuarios){
+        public String editarUsuarios(LUsuarios misUsuarios){
         try {
             String sql = "UPDATE tblusuarios SET Nombre=?, Apaterno=?, Amaterno=?, Usuario=?, Clave=?, Perfil=? WHERE IdUsuarios=?";
                     PreparedStatement pst = cn.prepareStatement(sql);
@@ -96,8 +96,56 @@ public class DUsuarios {
         }
       
     
+        }
+        
+        public String eliminarUsuarios(LUsuarios misUsuarios){
+        try {
+            String sql = "DELETE FROM tblusuarios  WHERE IdUsuarios=?";
+                    PreparedStatement pst = cn.prepareStatement(sql);
+                   
+                    pst.setInt(1, misUsuarios.getIdUsuarios());
+                    pst.executeUpdate();
+                     
+                     
+                     return "Se Elimino de forma correcta";
+                    
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+              return "Ocurrio un problema al eliminar registro";
+        }
 }
 
+        
+        
+        public DefaultTableModel buscarUsuarios(String buscar) {
+        try {
+            DefaultTableModel mimodelo;
+            String titulos []={"Id","Nombre","A/Paterno","A/Materno","Usuario","Clave","Perfil"};
+            String datos[]= new String[7];
+            mimodelo = new DefaultTableModel(null,titulos);
+            String sql = "SELECT * FROM tblUsuarios WHERE Usuario='"+buscar+"'";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            ResultSet rt = pst.executeQuery();
+            while (rt.next()) {                
+                datos[0] = rt.getString("IdUsuarios");
+                datos[1] = rt.getString("Nombre");
+                datos[2]=  rt.getString("Apaterno");
+                datos[3]=  rt.getString("Amaterno");
+                datos[4] = rt.getString("Usuario");
+                datos[5] = rt.getString("Clave");
+                datos[6] = rt.getString("Perfil");
+                mimodelo.addRow(datos);
+                        
+       
+        }
+        return mimodelo;
+    }catch(Exception ex){
+        JOptionPane.showMessageDialog(null, ex);
+        return null;
+    }
+    
+    }
+    
 
 }
 
