@@ -334,14 +334,7 @@ public class FrmUsuarios extends JInternalFrame{
         public void btnBuscarActionPerformed(ActionEvent evt){
             buscarUsuarios(txtBuscar.getText());
             
-            txtId.setText("");
-            txtNombre.setText("");
-            txtApaterno.setText("");
-            txtAmaterno.setText("");
-            txtUsuario.setText("");
-            txtClave.setText("");
-            txtConfirmaClave.setText("");
-            cmbPerfil.setSelectedItem(-1);
+           
             
         }
         
@@ -349,6 +342,15 @@ public class FrmUsuarios extends JInternalFrame{
         
         public void btnNuevoActionPerformed(ActionEvent evt){
             simostrarComponentes();
+            txtId.setText("");
+            txtNombre.setText("");
+            txtApaterno.setText("");
+            txtAmaterno.setText("");
+            txtUsuario.setText("");
+            txtClave.setText("");
+            txtConfirmaClave.setText("");
+            cmbPerfil.setSelectedIndex(-1);
+            txtNombre.requestFocusInWindow();
             
         }
         
@@ -384,6 +386,72 @@ public class FrmUsuarios extends JInternalFrame{
          
              
     private void btnGuardarActionPerformed(ActionEvent evt) {
+        
+        if(txtNombre.getText().equals("")){
+        
+        JOptionPane.showMessageDialog(this, "Falta ingresar el nombre");
+        txtNombre.requestFocusInWindow();
+        return;
+        }
+        
+           if(txtApaterno.getText().equals("")){
+        
+        JOptionPane.showMessageDialog(this, "Falta ingresar el apellido paterno");
+        txtApaterno.requestFocusInWindow();
+        return;
+        }
+        
+           
+            if(txtAmaterno.getText().equals("")){
+        
+        JOptionPane.showMessageDialog(this, "Falta ingresar el apellido materno");
+        txtAmaterno.requestFocusInWindow();
+        return;
+        }
+        
+              
+              
+                if(txtUsuario.getText().equals("")){
+        
+        JOptionPane.showMessageDialog(this, "Falta ingresar el usuario");
+        txtUsuario.requestFocusInWindow();
+        return;
+        }
+                
+        String pass = new String(txtClave.getPassword());
+        String ConfirmarPass = new String(txtConfirmaClave.getPassword());
+        
+        if(pass.equals("")){
+        
+        JOptionPane.showMessageDialog(this, "Falta ingresar la contraseña");
+        txtClave.requestFocusInWindow();
+        return;
+        }
+        
+                
+            if(ConfirmarPass.equals("")){
+        
+        JOptionPane.showMessageDialog(this, "Falta ingresar el Confirmar contraseña");
+        txtConfirmaClave.requestFocusInWindow();
+        return;
+        }
+            if(!pass.equals(ConfirmarPass)){
+                JOptionPane.showMessageDialog(this, "La contraseña y la confirmacion no son iguales");
+                txtClave.setText("");
+                txtConfirmaClave.setText("");
+                txtClave.requestFocusInWindow();
+                return;
+            }
+            
+            if(cmbPerfil.getSelectedIndex() == -1){
+                JOptionPane.showMessageDialog(this, "Falta selecciona un perfil");
+                cmbPerfil.requestFocusInWindow();
+                return;
+                        
+                
+            }
+            
+        
         if(!txtId.getText().equals("")){
         
         LUsuarios dts = new LUsuarios();
