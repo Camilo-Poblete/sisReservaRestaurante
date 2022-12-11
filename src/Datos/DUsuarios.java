@@ -23,7 +23,7 @@ public class DUsuarios {
     
     DConexion con = new DConexion();
     Connection cn = con.conectarDB();
-    
+    int resultado = 0;
     
     public DefaultTableModel mostrarUsuarios() {
         try {
@@ -145,6 +145,25 @@ public class DUsuarios {
     }
     
     }
+        
+        public int validarLogin(String usuario,String Clave){
+            try{
+            
+              String sql = "SELECT * FROM tblusuarios WHERE Usuario='"+usuario+"' and Clave='"+Clave+"'";
+              PreparedStatement pst = cn.prepareStatement(sql);
+              ResultSet rst=pst.executeQuery();
+              
+              while(rst.next()){
+                  resultado = 1;
+              }
+              
+              return resultado;
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, ex);
+                return resultado;
+            }
+           
+        }
     
 
 }

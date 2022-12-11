@@ -45,6 +45,10 @@ public class DPrincipal {
         
         MDIPrincipal miprincipal = new MDIPrincipal();
         miprincipal.setVisible(true);
+       
+       
+       //FrmLogin miLogin = new FrmLogin();
+       //miLogin.setVisible(true);
     }
     
     

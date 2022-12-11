@@ -48,7 +48,7 @@ public class MDIPrincipal extends JFrame{
         jmiMenuOpciones = new JMenu("Opciones");
         jmiMenuConsultas = new JMenu("Consultas");
         jmItemPlatillos = new JMenuItem("Platillos");
-        jmItemReservas = new JMenuItem("Reservasiones");
+        jmItemReservas = new JMenuItem("Reservaciones");
         jmItemVentas = new JMenuItem("Ventas");
         jmItemUsuarios = new JMenuItem("Usuarios");
         jmItemConsultasV = new JMenuItem("Consulta de venta");     
@@ -92,7 +92,31 @@ public class MDIPrincipal extends JFrame{
         
        }
     });
+    
+    
+     jmItemReservas.addActionListener(new java.awt.event.ActionListener(){
+        public void actionPerformed(java.awt.event.ActionEvent evt){
+            
+         
+               jmItemReservasActionPerformed(evt);
+            
+               
+        
+       }
+    });
+    
 }
+    
+    
+private void jmItemReservasActionPerformed(ActionEvent evt) {
+    FrmReservacion miReservacion = new FrmReservacion();
+    jdpEscritorio.add(miReservacion );
+    miReservacion.show();
+}
+    
+    
+    
+    
 
 private void jmItemUsuariosActionPerformed(ActionEvent evt) {
     FrmUsuarios misUsuarios = new FrmUsuarios();

@@ -5,6 +5,7 @@
  */
 package Presentacion;
 
+import Datos.DUsuarios;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -92,10 +93,31 @@ public class FrmLogin extends JFrame{
     }
     
 private void btnIngresarActionPerformed(ActionEvent evt){
+    
+    DUsuarios miusuario = new DUsuarios();
+    String usuario = txtUsuario.getText();
+    String Clave = new String(txtClave.getPassword());
+    if(miusuario.validarLogin(usuario, Clave)== 1){
+        this.dispose();
+        
     MDIPrincipal miPrincipal = new MDIPrincipal();
     miPrincipal.setLocationRelativeTo(null);
     miPrincipal.setVisible(true);
-    this.dispose();
+        
+    }else{
+        
+        JOptionPane.showMessageDialog(this, "Usuario y/o Clave incorrectos");
+        txtUsuario.setText("");
+        txtClave.setText("");
+        txtUsuario.requestFocusInWindow();
+    }
+    
+    
+    
+    /*MDIPrincipal miPrincipal = new MDIPrincipal();
+    miPrincipal.setLocationRelativeTo(null);
+    miPrincipal.setVisible(true);
+    this.dispose();*/
     }
 
 private void btnCancelarActionPerformed(ActionEvent evt){
