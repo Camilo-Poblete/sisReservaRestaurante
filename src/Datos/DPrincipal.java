@@ -43,12 +43,12 @@ public class DPrincipal {
         
         //DConexion miconexion = new DConexion();
         
-        MDIPrincipal miprincipal = new MDIPrincipal();
-        miprincipal.setVisible(true);
+       // MDIPrincipal miprincipal = new MDIPrincipal();
+       // miprincipal.setVisible(true);
        
        
-       //FrmLogin miLogin = new FrmLogin();
-       //miLogin.setVisible(true);
+       FrmLogin miLogin = new FrmLogin();
+       miLogin.setVisible(true);
     }
     
     

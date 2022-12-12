@@ -22,6 +22,7 @@ public class MDIPrincipal extends JFrame{
     private JMenuItem jmItemPlatillos,jmItemReservas,jmItemVentas;
     private JMenuItem jmItemUsuarios,jmItemConsultasV;
     private JDesktopPane jdpEscritorio;
+    String Us;
     
     public MDIPrincipal(){
         setTitle("...:: Sistema para reservaciones");
@@ -107,10 +108,16 @@ public class MDIPrincipal extends JFrame{
     
 }
     
+    public void setUsuario(String usuario){
+        Us = usuario;
+    }
+    
+    
     
 private void jmItemReservasActionPerformed(ActionEvent evt) {
     FrmReservacion miReservacion = new FrmReservacion();
     jdpEscritorio.add(miReservacion );
+    miReservacion.setUs(Us);
     miReservacion.show();
 }
     
@@ -121,6 +128,7 @@ private void jmItemReservasActionPerformed(ActionEvent evt) {
 private void jmItemUsuariosActionPerformed(ActionEvent evt) {
     FrmUsuarios misUsuarios = new FrmUsuarios();
     jdpEscritorio.add(misUsuarios);
+    //misUsuarios.setUs(Us);
     misUsuarios.show();
 }
 

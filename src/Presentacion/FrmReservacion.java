@@ -5,13 +5,22 @@
  */
 package Presentacion;
 
+import Datos.DReserva;
+import Logica.LReserva;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.Calendar;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -23,21 +32,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmReservacion extends JInternalFrame{
     
-    private JLabel lblId,lblNombre,lblFecha,lblHora, lblTelefono,lblMesaP,lblEstado,lblUsuario;
+    private JLabel lblId,lblNombre,lblFecha,lblHora, lblTelefono,lblMesaP,lblEstado,lblUsuario,lblMUs;
     private JTextField txtId, txtNombre,txtHora,txtTelefono,txtMesaP,txtBuscar;
+    
     private JComboBox cmdEstado;
+    
     String estado[]={"--Seleccione una opcion.--","Reservado","Libre"};
     private JButton btnNuevo, btnEditar, btnCancelar, btnGuardar, btnBuscar, btnEliminar;
     private JDateChooser txtFecha;
     
    private String[]titulos = {"Id","Nombre","Fecha","Hora","Telefono","Mesa para","Estado","Usuario"};
+   
    private JTable tblReserva;
    private JScrollPane scrReserva;
    private DefaultTableModel mimodelo;
    
     
     
-    public FrmReservacion(){
+    public FrmReservacion() {
         setTitle("Usuarios");
         setSize(900,600);
         setClosable(true);
@@ -55,6 +67,7 @@ public class FrmReservacion extends JInternalFrame{
         lblMesaP = new JLabel("Mesa para:");
         lblEstado = new JLabel("Estado:");
         lblUsuario = new JLabel("Usuario:");
+        lblMUs = new JLabel();
         
         
         txtId = new JTextField();
@@ -89,6 +102,7 @@ public class FrmReservacion extends JInternalFrame{
        add(lblMesaP);
        add(lblEstado);
        add(lblUsuario);
+       add(lblMUs);
        
        add(txtId);
        add(txtNombre);
@@ -120,7 +134,7 @@ public class FrmReservacion extends JInternalFrame{
         lblMesaP.setBounds(70, 190, 100, 25);
         lblEstado.setBounds(70, 220, 100, 25);
         lblUsuario.setBounds(680, 15, 100, 25);
-        
+        lblMUs.setBounds(790, 15, 100, 25);
         
         txtId.setBounds(160, 40, 100, 25);
         txtNombre.setBounds(160, 70, 200, 25);
@@ -183,10 +197,45 @@ public class FrmReservacion extends JInternalFrame{
           }
         
         });
+         
+         
+         tblReserva.addMouseListener(new MouseAdapter() {
+             public void mouseClicked(MouseEvent evt){
+                 tblReservaMouseClicked(evt);
+             }
+             
+       });
+         
+          
+         
+        mostrarReserva();
+    }
+    
+    private void tblReservaMouseClicked(MouseEvent evt){
+        int fila = tblReserva.rowAtPoint(evt.getPoint());
+      
+      txtId.setText(tblReserva.getValueAt(fila, 0).toString());
+      txtNombre.setText(tblReserva.getValueAt(fila, 1).toString());
+      txtFecha.setDate(Date.valueOf(tblReserva.getValueAt(fila, 2).toString()));
+      txtHora.setText(tblReserva.getValueAt(fila, 3).toString());
+      txtTelefono.setText(tblReserva.getValueAt(fila, 4).toString());
+      txtMesaP.setText(tblReserva.getValueAt(fila, 5).toString());
+      lblMUs.setText(tblReserva.getValueAt(fila,  6).toString());
+      cmdEstado.setSelectedItem(tblReserva.getValueAt(fila, 7).toString());
     }
     
     
     
+    
+    public void mostrarReserva() {
+        DReserva miRes = new DReserva();
+        mimodelo = miRes.mostrarReservacion();
+        tblReserva.setModel(mimodelo);
+    }
+    
+    public void setUs(String usuario){
+        lblMUs.setText(usuario);
+    }
     
     
     public void deshabilitar(){
@@ -206,6 +255,8 @@ public class FrmReservacion extends JInternalFrame{
         btnEliminar.setEnabled(true);
         btnBuscar.setEnabled(true);
     }
+    
+    
     
     private void btnNuevoActionPerformed(ActionEvent evt){
         
@@ -264,8 +315,58 @@ public class FrmReservacion extends JInternalFrame{
     }
      
      
+     
         private void btnGuardarActionPerformed(ActionEvent evt){
-        
+             if(txtId.getText().equals("")){
+                 DReserva fn = new DReserva();
+                 LReserva dts = new LReserva();
+                 
+                 dts.setNombre(txtNombre.getText());
+                 Calendar cal;
+                 cal = txtFecha.getCalendar();
+                 int d,m,a;
+                 d = cal.get(Calendar.DAY_OF_MONTH);
+                 m = cal.get(Calendar.MONTH);
+                 a = cal.get(Calendar.YEAR) - 1900;
+                 dts.setFecha(new Date(a,m,d));
+                 dts.setHora(txtHora.getText());
+                 dts.setTelefono(txtTelefono.getText());
+                 dts.setMesaPara(txtMesaP.getText());
+                 dts.setUsuario(lblMUs.getText());
+                 
+                 int seleccion = cmdEstado.getSelectedIndex();
+                 dts.setEstado((String) cmdEstado.getItemAt(seleccion));
+                 //dts.setIdReserva(Integer.parseInt(txtId.getText()));
+                 String msg = fn.insertarReservacion(dts);
+                 JOptionPane.showMessageDialog(rootPane, msg);
+                 
+            }else{
+                 
+                DReserva fn = new DReserva();
+                LReserva dts = new LReserva();
+                 
+                dts.setNombre(txtNombre.getText());
+                Calendar cal;
+                cal = txtFecha.getCalendar();
+                int d,m,a;
+                d = cal.get(Calendar.DAY_OF_MONTH);
+                m = cal.get(Calendar.MONTH);
+                a = cal.get(Calendar.YEAR) - 1900;
+                dts.setFecha(new Date(a,m,d));
+                dts.setHora(txtHora.getText());
+                dts.setTelefono(txtTelefono.getText());
+                dts.setMesaPara(txtMesaP.getText());
+                dts.setUsuario(lblMUs.getText());
+                 
+                int seleccion = cmdEstado.getSelectedIndex();
+                dts.setEstado((String) cmdEstado.getItemAt(seleccion));
+                dts.setIdReserva(Integer.parseInt(txtId.getText()));
+                String msg = fn.editarReservacion(dts);
+                JOptionPane.showMessageDialog(rootPane, msg);
+            }
+            
+            
+         mostrarReserva();
         txtId.setEnabled(false);
         txtNombre.setEnabled(false);
         txtFecha.setEnabled(false);
@@ -282,6 +383,7 @@ public class FrmReservacion extends JInternalFrame{
         btnBuscar.setEnabled(true);
     }
         
+       
         
         private void btnEliminarActionPerformed(ActionEvent evt){
        
