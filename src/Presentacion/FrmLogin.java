@@ -103,6 +103,7 @@ private void btnIngresarActionPerformed(ActionEvent evt){
     MDIPrincipal miPrincipal = new MDIPrincipal();
     miPrincipal.setLocationRelativeTo(null);
     miPrincipal.setUsuario(usuario);
+    miPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
     miPrincipal.setVisible(true);
         
     }else{

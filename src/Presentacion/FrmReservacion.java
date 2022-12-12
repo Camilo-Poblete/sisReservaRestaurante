@@ -6,7 +6,9 @@
 package Presentacion;
 
 import Datos.DReserva;
+import Datos.DUsuarios;
 import Logica.LReserva;
+import Logica.LUsuarios;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
+import javax.swing.ImageIcon;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,13 +35,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmReservacion extends JInternalFrame{
     
-    private JLabel lblId,lblNombre,lblFecha,lblHora, lblTelefono,lblMesaP,lblEstado,lblUsuario,lblMUs;
+    private JLabel lblId,lblNombre,lblFecha,lblHora, lblTelefono,lblMesaP,lblUsuario,lblMUs;
     private JTextField txtId, txtNombre,txtHora,txtTelefono,txtMesaP,txtBuscar;
     
-    private JComboBox cmdEstado;
+   // private JComboBox cmdEstado;
     
-    String estado[]={"--Seleccione una opcion.--","Reservado","Libre"};
-    private JButton btnNuevo, btnEditar, btnCancelar, btnGuardar, btnBuscar, btnEliminar;
+   // String estado[]={"--Seleccione una opcion.--","Reservado","Cancelado"};
+    private JButton btnNuevo, btnEditar, btnCancelar, btnGuardar, btnBuscar, btnEliminar,btnCancelarR;
     private JDateChooser txtFecha;
     
    private String[]titulos = {"Id","Nombre","Fecha","Hora","Telefono","Mesa para","Estado","Usuario"};
@@ -50,7 +53,7 @@ public class FrmReservacion extends JInternalFrame{
     
     
     public FrmReservacion() {
-        setTitle("Usuarios");
+        setTitle("Reservaciones");
         setSize(900,600);
         setClosable(true);
         setIconifiable(true);
@@ -58,6 +61,15 @@ public class FrmReservacion extends JInternalFrame{
         setVisible(true);
         
         //creamos componentes
+       ImageIcon imNuevo = new ImageIcon(getClass().getResource("/Imagenes/Nuevo.png"));
+       ImageIcon imEditar = new ImageIcon(getClass().getResource("/Imagenes/editar.png"));
+       ImageIcon imGuardar = new ImageIcon(getClass().getResource("/Imagenes/guardar.png"));
+       ImageIcon imCancelar = new ImageIcon(getClass().getResource("/Imagenes/cancelar.png")); 
+       ImageIcon imEliminar = new ImageIcon(getClass().getResource("/Imagenes/eliminar.png")); 
+       ImageIcon imBuscar = new ImageIcon(getClass().getResource("/Imagenes/search.png")); 
+       ImageIcon imCancelarR = new ImageIcon(getClass().getResource("/Imagenes/rechazar.png")); 
+        
+        
         
         lblId = new JLabel("Id:");
         lblNombre = new JLabel("Nombre:");
@@ -65,7 +77,7 @@ public class FrmReservacion extends JInternalFrame{
         lblHora = new JLabel("Hora:");
         lblTelefono = new JLabel("Telefono:");
         lblMesaP = new JLabel("Mesa para:");
-        lblEstado = new JLabel("Estado:");
+       // lblEstado = new JLabel("Estado:");
         lblUsuario = new JLabel("Usuario:");
         lblMUs = new JLabel();
         
@@ -77,7 +89,7 @@ public class FrmReservacion extends JInternalFrame{
         txtTelefono = new JTextField();
         txtMesaP = new JTextField();
         txtBuscar = new JTextField();
-        cmdEstado = new JComboBox(estado);
+       // cmdEstado = new JComboBox(estado);
         
         
         btnNuevo = new JButton("Nuevo");
@@ -86,6 +98,16 @@ public class FrmReservacion extends JInternalFrame{
         btnGuardar = new JButton("Guardar");
         btnBuscar = new JButton("Buscar");
         btnEliminar = new JButton("Eliminar");
+        btnCancelarR = new JButton("Cancelar reserva");
+        
+        btnBuscar.setIcon(imBuscar);
+        btnNuevo.setIcon(imNuevo);
+        btnEditar.setIcon(imEditar);
+        btnCancelar.setIcon(imCancelar);
+        btnGuardar.setIcon(imGuardar);
+        btnBuscar.setIcon(imBuscar);
+        btnEliminar.setIcon(imEliminar);
+        btnCancelarR.setIcon(imCancelarR);
         
         mimodelo = new DefaultTableModel(null,titulos);
         tblReserva = new JTable(mimodelo);
@@ -100,7 +122,7 @@ public class FrmReservacion extends JInternalFrame{
        add(lblHora);
        add (lblTelefono);
        add(lblMesaP);
-       add(lblEstado);
+       //add(lblEstado);
        add(lblUsuario);
        add(lblMUs);
        
@@ -110,7 +132,7 @@ public class FrmReservacion extends JInternalFrame{
        add(txtHora);
        add (txtTelefono);
        add(txtMesaP);
-       add(cmdEstado);
+       //add(cmdEstado);
        
        add(btnNuevo);
        add(btnEditar);
@@ -119,7 +141,7 @@ public class FrmReservacion extends JInternalFrame{
        add(btnBuscar);
        add(btnEliminar);
        add(txtBuscar);
-       
+       add(btnCancelarR);
        add(scrReserva);
        
        
@@ -132,9 +154,9 @@ public class FrmReservacion extends JInternalFrame{
         lblHora.setBounds(70, 130, 100, 25);
         lblTelefono.setBounds(70, 150, 100, 25);
         lblMesaP.setBounds(70, 190, 100, 25);
-        lblEstado.setBounds(70, 220, 100, 25);
+       // lblEstado.setBounds(70, 220, 100, 25);
         lblUsuario.setBounds(680, 15, 100, 25);
-        lblMUs.setBounds(790, 15, 100, 25);
+        lblMUs.setBounds(745, 15, 100, 25);
         
         txtId.setBounds(160, 40, 100, 25);
         txtNombre.setBounds(160, 70, 200, 25);
@@ -142,20 +164,23 @@ public class FrmReservacion extends JInternalFrame{
         txtHora.setBounds(160, 130, 100, 25);
         txtTelefono.setBounds(160, 160, 100, 25);
         txtMesaP.setBounds(160, 190, 150, 25);
-        cmdEstado.setBounds(160, 220, 200, 25);
+       // cmdEstado.setBounds(160, 220, 200, 25);
         
         
-        btnNuevo.setBounds(70, 300, 100, 25);
-        btnEditar.setBounds(200, 300, 100, 25);
-        btnCancelar.setBounds(330, 300, 100, 25);
-        btnGuardar.setBounds(460, 300, 100, 25);
-        btnBuscar.setBounds(590, 300, 100, 25);
-        btnEliminar.setBounds(590, 300, 100, 25);
+        btnNuevo.setBounds(40, 285, 120, 32);
+        btnEditar.setBounds(170, 285, 100, 32);
+        btnCancelar.setBounds(430, 285, 120, 32);
+        btnGuardar.setBounds(300, 285, 120, 32);
+       // btnBuscar.setBounds(590, 285, 120, 25);
+        btnEliminar.setBounds(730, 285, 120, 32);
         
-        txtBuscar.setBounds(40, 350, 190, 25);
+        btnCancelarR.setBounds(560, 285, 160, 32);
         
-        btnBuscar.setBounds(280, 350, 100, 25);
-        scrReserva.setBounds(40, 380, 800, 180);
+        txtBuscar.setBounds(40, 350, 190, 32);
+        
+        btnBuscar.setBounds(280, 350, 100, 32);
+        scrReserva.setBounds(40, 380, 810, 180);
+        
         deshabilitar();
         
         
@@ -199,6 +224,17 @@ public class FrmReservacion extends JInternalFrame{
         });
          
          
+              
+         btnCancelarR.addActionListener(new ActionListener(){
+          public void actionPerformed(ActionEvent evt){
+             btnCancelarRActionPerformed(evt);
+          }
+
+          
+         });
+         
+                 
+         
          tblReserva.addMouseListener(new MouseAdapter() {
              public void mouseClicked(MouseEvent evt){
                  tblReservaMouseClicked(evt);
@@ -213,7 +249,8 @@ public class FrmReservacion extends JInternalFrame{
     
     private void tblReservaMouseClicked(MouseEvent evt){
         int fila = tblReserva.rowAtPoint(evt.getPoint());
-      
+        
+        
       txtId.setText(tblReserva.getValueAt(fila, 0).toString());
       txtNombre.setText(tblReserva.getValueAt(fila, 1).toString());
       txtFecha.setDate(Date.valueOf(tblReserva.getValueAt(fila, 2).toString()));
@@ -221,7 +258,7 @@ public class FrmReservacion extends JInternalFrame{
       txtTelefono.setText(tblReserva.getValueAt(fila, 4).toString());
       txtMesaP.setText(tblReserva.getValueAt(fila, 5).toString());
       lblMUs.setText(tblReserva.getValueAt(fila,  6).toString());
-      cmdEstado.setSelectedItem(tblReserva.getValueAt(fila, 7).toString());
+      //cmdEstado.setSelectedItem(tblReserva.getValueAt(fila, 7).toString());
     }
     
     
@@ -246,13 +283,14 @@ public class FrmReservacion extends JInternalFrame{
         txtHora.setEnabled(false);
         txtTelefono.setEnabled(false);
         txtMesaP.setEnabled(false);
-        cmdEstado.setEnabled(false);
+      //  cmdEstado.setEnabled(false);
         
         btnNuevo.setEnabled(true);
         btnEditar.setEnabled(true);
-        btnCancelar.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        btnEliminar.setEnabled(true);
+        btnCancelar.setEnabled(false);
+        btnGuardar.setEnabled(false);
+        btnEliminar.setEnabled(true); 
+        btnCancelarR.setEnabled(true);
         btnBuscar.setEnabled(true);
     }
     
@@ -260,13 +298,21 @@ public class FrmReservacion extends JInternalFrame{
     
     private void btnNuevoActionPerformed(ActionEvent evt){
         
+        txtId.setText("");
+        txtNombre.setText("");
+        txtFecha.setDate(null);
+        txtHora.setText("");
+        txtTelefono.setText("");
+        txtMesaP.setText("");
+    //    cmdEstado.setSelectedIndex(1);
+        
         txtId.setEnabled(false);
         txtNombre.setEnabled(true);
         txtFecha.setEnabled(true);
         txtHora.setEnabled(true);
         txtTelefono.setEnabled(true);
         txtMesaP.setEnabled(true);
-        cmdEstado.setEnabled(true);
+     //   cmdEstado.setEnabled(true);
         
         btnNuevo.setEnabled(false);
         btnEditar.setEnabled(false);
@@ -274,6 +320,7 @@ public class FrmReservacion extends JInternalFrame{
         btnGuardar.setEnabled(true);
         btnEliminar.setEnabled(false);
         btnBuscar.setEnabled(false);
+        btnCancelarR.setEnabled(false);
     }
     
     
@@ -285,7 +332,7 @@ public class FrmReservacion extends JInternalFrame{
         txtHora.setEnabled(true);
         txtTelefono.setEnabled(true);
         txtMesaP.setEnabled(true);
-        cmdEstado.setEnabled(true);
+      //  cmdEstado.setEnabled(true);
         
         btnNuevo.setEnabled(false);
         btnEditar.setEnabled(false);
@@ -293,6 +340,7 @@ public class FrmReservacion extends JInternalFrame{
         btnGuardar.setEnabled(true);
         btnEliminar.setEnabled(false);
         btnBuscar.setEnabled(false);
+        btnCancelarR.setEnabled(false);        
     }
      
      
@@ -304,13 +352,14 @@ public class FrmReservacion extends JInternalFrame{
         txtHora.setEnabled(false);
         txtTelefono.setEnabled(false);
         txtMesaP.setEnabled(false);
-        cmdEstado.setEnabled(false);
+     //   cmdEstado.setEnabled(false);
         
         btnNuevo.setEnabled(true);
         btnEditar.setEnabled(true);
         btnCancelar.setEnabled(false);
         btnGuardar.setEnabled(false);
-        btnEliminar.setEnabled(true);
+        btnEliminar.setEnabled(true); 
+        btnCancelarR.setEnabled(true);
         btnBuscar.setEnabled(true);
     }
      
@@ -334,8 +383,8 @@ public class FrmReservacion extends JInternalFrame{
                  dts.setMesaPara(txtMesaP.getText());
                  dts.setUsuario(lblMUs.getText());
                  
-                 int seleccion = cmdEstado.getSelectedIndex();
-                 dts.setEstado((String) cmdEstado.getItemAt(seleccion));
+                // int seleccion = cmdEstado.getSelectedIndex();
+               //  dts.setEstado((String) cmdEstado.getItemAt(seleccion));
                  //dts.setIdReserva(Integer.parseInt(txtId.getText()));
                  String msg = fn.insertarReservacion(dts);
                  JOptionPane.showMessageDialog(rootPane, msg);
@@ -358,8 +407,8 @@ public class FrmReservacion extends JInternalFrame{
                 dts.setMesaPara(txtMesaP.getText());
                 dts.setUsuario(lblMUs.getText());
                  
-                int seleccion = cmdEstado.getSelectedIndex();
-                dts.setEstado((String) cmdEstado.getItemAt(seleccion));
+              //  int seleccion = cmdEstado.getSelectedIndex();
+              //  dts.setEstado((String) cmdEstado.getItemAt(seleccion));
                 dts.setIdReserva(Integer.parseInt(txtId.getText()));
                 String msg = fn.editarReservacion(dts);
                 JOptionPane.showMessageDialog(rootPane, msg);
@@ -373,19 +422,53 @@ public class FrmReservacion extends JInternalFrame{
         txtHora.setEnabled(false);
         txtTelefono.setEnabled(false);
         txtMesaP.setEnabled(false);
-        cmdEstado.setEnabled(false);
+       // cmdEstado.setEnabled(false);
         
         btnNuevo.setEnabled(true);
         btnEditar.setEnabled(true);
         btnCancelar.setEnabled(false);
         btnGuardar.setEnabled(false);
-        btnEliminar.setEnabled(true);
+        btnEliminar.setEnabled(true); 
+        btnCancelarR.setEnabled(true);
         btnBuscar.setEnabled(true);
     }
         
        
         
         private void btnEliminarActionPerformed(ActionEvent evt){
+            //eliminarReserva
+            if(!txtId.getText().equals("")){
+               int confirmar = JOptionPane.showConfirmDialog(this, "En realidad deseas eliminar el registro?","Confrmar",2);
+               if(confirmar == 0){
+                   LReserva dts = new LReserva();
+                   DReserva fun = new DReserva();
+                   dts.setIdReserva(Integer.parseInt(txtId.getText()));
+                   String mensaje = fun.eliminarReserva(dts);
+                   JOptionPane.showMessageDialog(this, mensaje);
+                   mostrarReserva();
+               }
+           }
+            
+        }
+              private void btnCancelarRActionPerformed(ActionEvent evt) {
+                if(!txtId.getText().equals("")){
+               int confirmar = JOptionPane.showConfirmDialog(this, "En realidad deseas cancelar la reservacion?","Confrmar",
+                       2);
+               if(confirmar == 0){
+                   LReserva dts = new LReserva();
+                   DReserva fun = new DReserva();
+                   dts.setIdReserva(Integer.parseInt(txtId.getText()));
+                   String mensaje = fun.cancelarReserva(dts);
+                   JOptionPane.showMessageDialog(this, mensaje);
+                   mostrarReserva();
+            }
+        
        
+         
+            
+            }
+                
     }
 }
+    
+

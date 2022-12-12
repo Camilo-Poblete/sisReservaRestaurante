@@ -104,5 +104,36 @@ public class DReserva {
             return "Ocurrio un problema al modificar";
         }
         
+    }
+
+    public String cancelarReserva(LReserva miReservacion) {
+       
+        try {
+            String sql = "UPDATE tblreserva set Estado='Cancelado' WHERE IdReserva = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, miReservacion.getIdReserva());
+            pst.executeUpdate();
+            return "Se cancelo de forma correcta";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Ocurrio un problema al cancelar";
+        }
+        
+    }
+    
+        public String eliminarReserva(LReserva miReservacion) {
+       
+        try {
+            String sql = "DELETE FROM tblreserva WHERE IdReserva = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, miReservacion.getIdReserva());
+            pst.executeUpdate();
+            return "Se elimino de forma correcta";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Ocurrio un problema al eliminar";
+        }
+        
+    }
 }
-}
+
