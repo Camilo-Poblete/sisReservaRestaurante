@@ -84,7 +84,7 @@ public class DReserva {
         
         
         try {
-            String sql = "UPDATE tblreserva SET Nombre=?, Fecha=?, Hora=?, Telefono=?, MesaPara=?, Usuario=?, Estado=? WHERE IdReserva";
+            String sql = "UPDATE tblreserva SET Nombre=?, Fecha=?, Hora=?, Telefono=?, MesaPara=?, Usuario=?, Estado=? WHERE IdReserva=?";
             
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, miReservacion.getNombre());
