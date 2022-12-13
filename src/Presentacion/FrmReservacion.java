@@ -105,7 +105,7 @@ public class FrmReservacion extends JInternalFrame{
         btnCancelarR = new JButton("Cancelar reserva");
         btnBuscar = new JButton("Buscar");
         
-       // btnBuscar.setIcon(imBuscar);
+        btnBuscar.setIcon(imBuscar);
         btnNuevo.setIcon(imNuevo);
         btnEditar.setIcon(imEditar);
         btnCancelar.setIcon(imCancelar);
