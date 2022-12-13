@@ -392,6 +392,55 @@ public class FrmReservacion extends JInternalFrame{
      
      
         private void btnGuardarActionPerformed(ActionEvent evt){
+            
+            if(txtNombre.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "Falta ingresar el Nombre","Validacion",2);
+                txtNombre.requestFocusInWindow();
+                return;
+                
+            }
+            
+            
+            if(txtFecha.getDate()== null){
+                JOptionPane.showMessageDialog(this, "Falta ingresar la Fecha","Validacion",2);
+                txtFecha.requestFocusInWindow();
+                return;
+                
+            }
+            
+                 
+            if(txtHora.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "Falta ingresar la Hora","Validacion",2);
+                txtHora.requestFocusInWindow();
+                return;
+                
+            }
+            
+                      
+            if(txtTelefono.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "Falta ingresar el Telefono","Validacion",2);
+                txtTelefono.requestFocusInWindow();
+                return;
+                
+            }
+            
+            if(txtMesaP.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "Falta ingresar el Numero de personas","Validacion",2);
+                txtMesaP.requestFocusInWindow();
+                return;
+                
+            }
+            
+             if(lblMUs.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "Falta ingresar el Usuario","Validacion",2);
+                lblMUs.requestFocusInWindow();
+                return;
+                
+            }
+            
+            
+            
+            
              if(txtId.getText().equals("")){
                  DReserva fn = new DReserva();
                  LReserva dts = new LReserva();
