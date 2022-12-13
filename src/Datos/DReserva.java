@@ -81,8 +81,6 @@ public class DReserva {
     
         public String editarReservacion(LReserva miReservacion){
        
-        
-        
         try {
             String sql = "UPDATE tblreserva SET Nombre=?, Fecha=?, Hora=?, Telefono=?, MesaPara=?, Usuario=?, Estado=? WHERE IdReserva=?";
             
@@ -134,6 +132,47 @@ public class DReserva {
             return "Ocurrio un problema al eliminar";
         }
         
+        }
+        
+        public DefaultTableModel buscarReservacion(int id) {
+         String[]titulos = {"Id","Nombre","Fecha","Hora","Telefono","Mesa para","Usuario","Estado"};
+         DefaultTableModel miModelo = new DefaultTableModel(null,titulos);
+         String datos []= new String[8];
+         String sql = "SELECT * FROM tblreserva WHERE IdReserva='"+id+"'";
+         java.sql.PreparedStatement pst;
+         
+         try {
+            pst = con.prepareStatement(sql);
+            
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                datos[0] = rs.getString("IdReserva");
+                datos[1] = rs.getString("Nombre");
+                datos[2] = rs.getString("Fecha");
+                datos[3] = rs.getString("Hora");
+                datos[4] = rs.getString("Telefono");
+                datos[5] = rs.getString("MesaPara");
+                datos[6] = rs.getString("Usuario");
+                datos[7] = rs.getString("Estado");
+                
+                miModelo.addRow(datos);
+                
+            }
+            return miModelo;
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+     
+        
     }
-}
+    }
+        
+        
+          
+        
+     
+
 

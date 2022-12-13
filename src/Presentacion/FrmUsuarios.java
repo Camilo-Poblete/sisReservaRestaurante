@@ -519,4 +519,3 @@ public class FrmUsuarios extends JInternalFrame{
     }
     
     
-        
