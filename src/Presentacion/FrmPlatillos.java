@@ -1,14 +1,11 @@
 package Presentacion;
 
 import Datos.DPlatillos;
-import Datos.DReserva;
 import Logica.LPlatillos;
-import Logica.LReserva;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
