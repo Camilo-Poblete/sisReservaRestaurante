@@ -25,7 +25,7 @@ public class FrmLogin extends JFrame{
     
     public FrmLogin(){
         setTitle("Ingreso al sistema ...");
-        setSize(400,250);
+        setSize(650,350);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
        // setResizable(false);

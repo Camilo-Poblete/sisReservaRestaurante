@@ -106,7 +106,28 @@ public class MDIPrincipal extends JFrame{
        }
     });
     
-}
+       
+     jmItemPlatillos.addActionListener(new java.awt.event.ActionListener(){
+        public void actionPerformed(java.awt.event.ActionEvent evt){
+            
+         
+               jmItePlatillosActionPerformed(evt);
+            
+               
+        
+       }
+
+       private void jmItePlatillosActionPerformed(ActionEvent evt) {
+            FrmPlatillos misPlatillos = new FrmPlatillos();
+            jdpEscritorio.add(misPlatillos);
+            misPlatillos.show();
+       }
+    });
+    
+     
+     
+     
+    }           
     
     public void setUsuario(String usuario){
         Us = usuario;
@@ -128,7 +149,6 @@ private void jmItemReservasActionPerformed(ActionEvent evt) {
 private void jmItemUsuariosActionPerformed(ActionEvent evt) {
     FrmUsuarios misUsuarios = new FrmUsuarios();
     jdpEscritorio.add(misUsuarios);
-    //misUsuarios.setUs(Us);
     misUsuarios.show();
 }
 

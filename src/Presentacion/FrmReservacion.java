@@ -177,7 +177,6 @@ public class FrmReservacion extends JInternalFrame{
         btnEditar.setBounds(170, 285, 100, 32);
         btnCancelar.setBounds(430, 285, 120, 32);
         btnGuardar.setBounds(300, 285, 120, 32);
-       // btnBuscar.setBounds(590, 285, 120, 25);
         btnEliminar.setBounds(730, 285, 120, 32);
         
         btnCancelarR.setBounds(560, 285, 160, 32);
@@ -284,7 +283,7 @@ public class FrmReservacion extends JInternalFrame{
       txtTelefono.setText(tblReserva.getValueAt(fila, 4).toString());
       txtMesaP.setText(tblReserva.getValueAt(fila, 5).toString());
       lblMUs.setText(tblReserva.getValueAt(fila,  6).toString());
-      //cmdEstado.setSelectedItem(tblReserva.getValueAt(fila, 7).toString());
+    
     }
     
     
@@ -309,7 +308,7 @@ public class FrmReservacion extends JInternalFrame{
         txtHora.setEnabled(false);
         txtTelefono.setEnabled(false);
         txtMesaP.setEnabled(false);
-      //  cmdEstado.setEnabled(false);
+    
         
         btnNuevo.setEnabled(true);
         btnEditar.setEnabled(true);
@@ -317,7 +316,7 @@ public class FrmReservacion extends JInternalFrame{
         btnGuardar.setEnabled(false);
         btnEliminar.setEnabled(true); 
         btnCancelarR.setEnabled(true);
-       // btnBuscar.setEnabled(true);
+     
     }
     
     
