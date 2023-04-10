@@ -25,7 +25,7 @@ public class DConexion {
       
       try {
           Class.forName("com.mysql.cj.jdbc.Driver");
-          miconex= DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva","root","camilo12");
+          miconex= DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva?serverTimezone=UTC","root","");
          // JOptionPane.showMessageDialog(null, "Ya se conecto");
           
       } catch (ClassNotFoundException  | SQLException ex) {

@@ -246,11 +246,22 @@ public class FrmReservacion extends JInternalFrame{
              btnBuscarActionPerformed(evt);
           }
 
-            private void btnBuscarActionPerformed(ActionEvent evt) {
-                DReserva miRes = new DReserva();
-                mimodelo = miRes.buscarReservacion(Integer.parseInt(txtBuscar.getText()));
-                tblReserva.setModel(mimodelo);
-            }
+          
+         private void btnBuscarActionPerformed(ActionEvent evt) {
+    try {
+        DReserva miRes = new DReserva();
+        mimodelo = miRes.buscarReservacion(Integer.parseInt(txtBuscar.getText()));
+        tblReserva.setModel(mimodelo);
+    } catch (NumberFormatException ex) {
+        // Manejar la excepción de conversión de datos aquí
+        JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
+
+
+
 
           
          });
