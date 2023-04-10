@@ -12,9 +12,18 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/camil/Desktop/Proyectos/sisReservaRestaurante/src/Logica/LReserva.java</file>
-            <file>file:/C:/Users/camil/Desktop/Proyectos/sisReservaRestaurante/src/Presentacion/FrmReservacion.java</file>
-            <file>file:/C:/Users/camil/Desktop/Proyectos/sisReservaRestaurante/src/Datos/DReserva.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Logica/LUsuarios.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Datos/DUsuarios.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Datos/DReserva.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Presentacion/FrmReservacion.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Presentacion/FrmPlatillos.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Datos/DConexion.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Presentacion/FrmLogin.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Presentacion/MDIPrincipal.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Datos/DPlatillos.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Imagenes/usuarios.png</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Presentacion/FrmUsuarios.java</file>
+            <file>file:/C:/Users/Camilo-Poblete/Desktop/sisReservaRestaurante/src/Datos/DPrincipal.java</file>
         </group>
     </open-files>
 </project-private>
